@@ -1,0 +1,49 @@
+Given an array of strings, group anagrams together.
+
+Example:
+
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+Output:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+Note:
+
+All inputs will be in lowercase.
+The order of your output does not matter.
+
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function(strs) {
+    if(strs === null || strs.length === 0) {
+        return strs;
+    }
+    let map = new Map();
+    
+    for(let str of strs) {        
+        const strArr = str.split('');        
+        let keyArr = new Array(26);
+        
+        keyArr.fill(0, 0, 26);        
+        for(let ch of strArr) {
+            keyArr[ch.charCodeAt(0)-97]++;
+        }
+        const key = keyArr.join('-');
+        
+        if(!map.has(key)) {
+            const temp = new Array();    
+            temp.push(str);
+            map.set(key, temp);
+        } else {
+            const temp = map.get(key);  
+            temp.push(str);
+            map.set(key, temp);
+        }        
+    }    
+    return Array.from(map.values());
+};
