@@ -1,0 +1,36 @@
+Given an arbitrary ransom note string and another string containing letters from all the magazines, write a function that will return true if the ransom note can be constructed from the magazines ; otherwise, it will return false.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Note:
+You may assume that both strings contain only lowercase letters.
+
+canConstruct("a", "b") -> false
+canConstruct("aa", "ab") -> false
+canConstruct("aa", "aab") -> true
+
+
+/**
+ * @param {string} ransomNote
+ * @param {string} magazine
+ * @return {boolean}
+ */
+var canConstruct = function(ransomNote, magazine) {
+    let letters = new Array(26);
+    letters.fill(0);
+    
+    for(let r=0; r<ransomNote.length; r++) {
+        letters[ransomNote.charCodeAt(r)-97]++;
+    }
+    for(let m=0; m<magazine.length; m++) {
+        if(letters[magazine.charCodeAt(m)-97]) {
+            letters[magazine.charCodeAt(m)-97]--;
+        }
+    }
+    for(let l of letters){
+        if(l != 0) {
+            return false;
+        }
+    }
+    return true;
+};
