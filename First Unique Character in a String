@@ -1,0 +1,39 @@
+Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
+
+Examples:
+
+s = "leetcode"
+return 0.
+
+s = "loveleetcode",
+return 2.
+Note: You may assume the string contain only lowercase letters.
+
+
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function(s) {
+    if(!s) {
+        return -1;
+    }
+    let charArr = new Array(26);
+    charArr.fill(-1);
+    for(let i=0; i<s.length; i++) {
+        if(charArr[s.charCodeAt(i)-97] === -1) {
+            charArr[s.charCodeAt(i)-97] = i;
+        } else {
+            charArr[s.charCodeAt(i)-97] = -2;
+        }
+    }
+    console.log(charArr);
+    let minIndex = Number.MAX_SAFE_INTEGER;
+    for(let i=0; i<charArr.length; i++) {
+        if(charArr[i]>=0 && minIndex > charArr[i]) {
+            minIndex = charArr[i];
+        }
+    }
+    return minIndex === Number.MAX_SAFE_INTEGER ? -1 : minIndex;
+};
