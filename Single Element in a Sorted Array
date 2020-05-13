@@ -14,6 +14,7 @@ Output: 10
 
 Note: Your solution should run in O(log n) time and O(1) space.
 
+//  ***** O(N) solution  *****
 
 /**
  * @param {number[]} nums
@@ -28,4 +29,29 @@ var singleNonDuplicate = function(nums) {
         ele ^= nums[i]; 
     }
     return ele;
+};
+
+
+//  ***** O(logN) solution  *****
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNonDuplicate = function(nums) {
+    if(!nums || nums.length === 0) {
+        return nums;
+    }
+    let lo = 0;
+    let hi = nums.length-1;
+    
+    while(lo<hi) {
+        const mid = lo + Math.floor((hi-lo)/2);
+        if(nums[mid] === nums[mid^1]) { // if mid is even, compare with next #, else prev #
+            lo = mid+1;
+        } else {
+            hi = mid;
+        }
+    }
+    return nums[lo];
 };
