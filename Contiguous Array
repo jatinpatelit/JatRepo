@@ -11,12 +11,13 @@ Explanation: [0, 1] (or [1, 0]) is a longest contiguous subarray with equal numb
 Note: The length of the given binary array will not exceed 50,000.
 
 
+
 /**
  * @param {number[]} nums
  * @return {number}
  */
 var findMaxLength = function(nums) {
-    if(nums === null || nums.length === 0) {
+    if(!nums || nums.length === 0) {
         return 0;
     }
     let map = new Map();
@@ -25,8 +26,7 @@ var findMaxLength = function(nums) {
     let count = 0;
     let max = 0;
     for(let i=0; i<nums.length; i++) {
-        let temp = nums[i] === 1 ? 1 : -1;
-        count += temp;
+        nums[i] === 1 ? count++ : count--;
         if(!map.has(count)) {
             map.set(count, i);
         } else {
